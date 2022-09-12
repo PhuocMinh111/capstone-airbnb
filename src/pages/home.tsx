@@ -1,12 +1,7 @@
-import React from 'react';
+import React from "react";
 
-
-
-const Home = ():React.FC => {
-    
-    return <>
-    Home
-    </>
-}
+const Home = () => {
+  return <>Home</>;
+};
 
 export default Home;
