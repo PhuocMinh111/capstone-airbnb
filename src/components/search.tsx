@@ -2,13 +2,9 @@ import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FaSearch } from "react-icons/fa";
-import BasicDatePicker from "./dataPicker";
+import BasicDatePicker from "./datePicker";
+import { CHECK_IN, CHECK_OUT, navigation, menu } from "../constants/common";
 
-const navigation = [
-  { name: "Dashboard", href: "#", current: false },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
-];
 type navigation = {
   name: string;
   href: string;
@@ -21,10 +17,16 @@ function classNames(...classes: any[]) {
 
 function Search() {
   const navigate = useNavigate();
-  const [show, setshow] = useState<boolean>(false);
+  const [value, setvalue] = useState();
+  const [show, setShow] = useState<boolean>(false);
   const containRef = useRef<HTMLDivElement>(null);
+
+  function handleClick() {
+    console.log("click");
+    setShow(!show);
+  }
   useEffect(() => {
-    function outsideClose(e: any) {
+    function outsideClose(e: any | undefined) {
       const dialog = document.querySelector('[role="dialog"]');
 
       if (
@@ -32,12 +34,10 @@ function Search() {
         !containRef.current.contains(e.target) &&
         !dialog?.contains(e.target)
       ) {
-        console.log(e.target);
-
-        setshow(false);
+        setShow(false);
       }
     }
-    document.addEventListener("click", outsideClose);
+    document.addEventListener("click", outsideClose, { capture: true });
 
     return () => {
       document.removeEventListener("click", outsideClose);
@@ -45,7 +45,7 @@ function Search() {
   }, [containRef]);
 
   return (
-    <Wrapper className="mx-auto lg:w-2/3 lg:h-auto sm:w-25">
+    <Wrapper className="mx-auto mt-2 lg:w-2/3 lg:h-auto sm:w-25">
       <div
         className={`${
           show ? "h-16" : "h-0"
@@ -84,18 +84,29 @@ function Search() {
               </label>
               <input id="place" type="text" placeholder="" />
             </div>
-            <BasicDatePicker />
+            <BasicDatePicker type={CHECK_IN} isSubmit={false} />
+            <BasicDatePicker type={CHECK_OUT} isSubmit={false} />
           </form>
         </div>
       ) : (
-        <div
-          className="flex h-5 py-4 border-2 justify-center bg-light items-center  sm:w-2/3 rounded-full shadow-sm"
-          onClick={() => setshow(true)}
-        >
-          <div className="w-1/4 cursor-pointer text-lg">Chỗ ở bất kỳ</div>
-          <div className="w-1/4 cursor-pointer text-lg">Ngày đi</div>
-          <div className="w-1/4 cursor-pointer text-lg">Ngày về</div>
-          <FaSearch className="rounded-full text-white w-8 h-8 bg-red-500 p-2" />
+        <div className="flex h-5 py-4 border-2 justify-center bg-light items-center  sm:w-2/3 rounded-full shadow-sm">
+          {menu.map((ele) => {
+            return (
+              <button
+                onClick={() => {
+                  setShow(true);
+                }}
+                className="z-50 w-1/4 cursor-pointer text-lg"
+              >
+                {ele.name}
+              </button>
+            );
+          })}
+          <FaSearch
+            role="button"
+            onClick={() => setShow(true)}
+            className="rounded-full text-white hover w-8 h-8 bg-red-500 p-2"
+          />
         </div>
       )}
     </Wrapper>
