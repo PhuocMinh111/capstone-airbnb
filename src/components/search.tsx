@@ -49,7 +49,7 @@ function Search() {
       <div
         className={`${
           show ? "h-16" : "h-0"
-        } transition-all sm:mx-auto overflow-hidden sm:block `}
+        } transition-all flex flex-col items-center sm:mx-auto overflow-hidden sm:block `}
       >
         <div className="flex mx-auto space-x-4">
           {navigation.map((item, index) => (
@@ -76,7 +76,7 @@ function Search() {
           <form
             className={`${
               show ? "block" : "hidden"
-            } flex h-auto px-4 border-2 bg-light lg:w-auto sm:w-2/3 rounded-full shadow-sm`}
+            } flex flex-col sm:flex-row h-auto px-4 border-2 bg-light text-sm lg:text-xl lg:w-auto w-5/6 rounded-full shadow-sm`}
           >
             <div className="flex flex-col lg:w-1/4 mx-2 ">
               <label id="place" htmlFor="place" className="text-lg">
@@ -89,7 +89,7 @@ function Search() {
           </form>
         </div>
       ) : (
-        <div className="flex h-5 py-4 border-2 justify-center bg-light items-center  sm:w-2/3 rounded-full shadow-sm">
+        <div className="flex text-sm lg:text-xl mx-auto  h-5 py-4 border-2 justify-center bg-light items-center  sm:w-2/3 rounded-full shadow-sm">
           {menu.map((ele) => {
             return (
               <button

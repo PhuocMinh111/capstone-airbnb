@@ -29,14 +29,16 @@ export default function Example() {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className="flex  flex-1 md:text-2xl sm:text-sm items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex sm:block flex-shrink-0 text-slate-50 items-center">
-                  <FaAirbnb className="text-slate-50 hidden h-8 w-auto lg:hidden" />
-                  <FaAirbnb
-                    className="text-slate-50 hidden h-8 w-auto lg:block"
-                    width={20}
-                  />{" "}
-                  AirBnb
+              <div className="flex  flex-1 md:text-2xl sm:text-sm items-center justify-start sm:items-stretch sm:justify-start">
+                <div className="flex flex-1 flex-shrink w-20 block  text-slate-50 items-center">
+                  <div>
+                    <FaAirbnb className="text-slate-50 block hidden h-8 w-auto lg:hidden" />
+                    <FaAirbnb
+                      className="text-slate-50 block hidden h-8 w-auto lg:block"
+                      width={20}
+                    />
+                  </div>
+                  <span className="block">Airbnb</span>
                 </div>
                 <Search />
               </div>
@@ -116,27 +118,6 @@ export default function Example() {
               </div>
             </div>
           </div>
-
-          {/* <Disclosure.Panel className="sm:hidden">
-            <div className="space-y-1 px-2 pt-2 pb-3">
-              {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={classNames(
-                    item.current
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                    "block px-3 py-2 rounded-md text-base font-medium"
-                  )}
-                  aria-current={item.current ? "page" : undefined}
-                >
-                  {item.name}
-                </Disclosure.Button>
-              ))}
-            </div>
-          </Disclosure.Panel> */}
         </>
       )}
     </Disclosure>
