@@ -4,12 +4,9 @@ import styled from "styled-components";
 import { FaSearch } from "react-icons/fa";
 import BasicDatePicker from "./datePicker";
 import { CHECK_IN, CHECK_OUT, navigation, menu } from "../constants/common";
+import { Dayjs } from "dayjs";
 
-type navigation = {
-  name: string;
-  href: string;
-  current: boolean;
-}[];
+
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -20,11 +17,18 @@ function Search() {
   const [value, setvalue] = useState();
   const [show, setShow] = useState<boolean>(false);
   const containRef = useRef<HTMLDivElement>(null);
-
-  function handleClick() {
-    console.log("click");
-    setShow(!show);
+const [checkin,setCheckin] = useState<Dayjs | null>(null)  
+  const [checkout,setCheckout] = useState<Dayjs | null>(null);  
+  const[place,setPlace] = useState<any>(null);
+  console.log(checkin);
+  console.log(checkout);
+  
+  
+  function handleSubmit (e:any) {
+        e.preventDefault();
   }
+  
+  
   useEffect(() => {
     function outsideClose(e: any | undefined) {
       const dialog = document.querySelector('[role="dialog"]');
@@ -38,7 +42,7 @@ function Search() {
       }
     }
     document.addEventListener("click", outsideClose, { capture: true });
-
+    
     return () => {
       document.removeEventListener("click", outsideClose);
     };
@@ -76,16 +80,29 @@ function Search() {
           <form
             className={`${
               show ? "block" : "hidden"
-            } flex h-auto px-4 border-2 bg-light lg:w-auto sm:w-2/3 rounded-full shadow-sm`}
+            } flex flex-col items-center justify-between rounded-md sm:flex-row h-auto py-2 px-4 border-2 w-1/2 bg-light sm:w-auto  sm:rounded-full shadow-sm`}
+            
           >
             <div className="flex flex-col lg:w-1/4 mx-2 ">
-              <label id="place" htmlFor="place" className="text-lg">
+              <label id="place" htmlFor="place" className="text-sm ">
                 dia diem
               </label>
-              <input id="place" type="text" placeholder="" />
+              <input id="place"
+              type="text"
+               onChange={((e)=>setPlace(e.target.value))} value={place}  placeholder="" />
             </div>
-            <BasicDatePicker type={CHECK_IN} isSubmit={false} />
-            <BasicDatePicker type={CHECK_OUT} isSubmit={false} />
+            <div className="flex flex-col mx-ato w-5/6 sm:w-1/4 "> 
+            <div className="text-sm text-black">Ngày đi  </div>
+            <BasicDatePicker value={checkin} setValue={(newValue) => setCheckin(newValue)} isSubmit={false} />
+            </div>
+            <div className="flex flex-col mx-ato w-5/6 sm:w-1/4 "> 
+            <div className="text-sm text-black">Ngày về  </div>
+            <BasicDatePicker value={checkout} setValue={(newValue) => setCheckout(newValue)} isSubmit={false} />
+            </div>
+            <div className="w-5/6 sm:w-1/4 lg:ml-4">
+                <button onClick={handleSubmit}>
+                <FaSearch className="rounded-full text-lg p-2 w-10 h-10 bg-red-500 text-white "/>
+                </button></div>
           </form>
         </div>
       ) : (
