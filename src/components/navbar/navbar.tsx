@@ -4,6 +4,8 @@ import { FaAirbnb } from "react-icons/fa";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Navigate, useNavigate } from "react-router-dom";
+import {useDispatch } from 'react-redux';
+import {openSidebar} from '../../store/reducers/navBarReducer'
 import Search from "./search";
 import Profile from "./profile"
 
@@ -12,7 +14,7 @@ import Profile from "./profile"
 
 export default function NavBar() {
   const navigate = useNavigate();
-  
+  const dispatch = useDispatch();
     
     
   return (
@@ -23,13 +25,10 @@ export default function NavBar() {
             <div className="relative flex h-auto items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
-                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <Disclosure.Button 
+                onClick={()=>dispatch(openSidebar())} className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="sr-only">Open main menu</span>
-                  {open ? (
-                    <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
-                  ) : (
                     <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
-                  )}
                 </Disclosure.Button>
                 <span><FaAirbnb className="text-lg text-red-50 sm:hidden"/></span>
               </div>

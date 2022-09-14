@@ -20,12 +20,17 @@ function Search() {
 const [checkin,setCheckin] = useState<Dayjs | null>(null)  
   const [checkout,setCheckout] = useState<Dayjs | null>(null);  
   const[place,setPlace] = useState<any>(null);
-  console.log(checkin);
-  console.log(checkout);
+ const [err,setErr] = useState<{msg:string;state:boolean}>({
+      msg:'',
+      state:false,
+    })
   
   
-  function handleSubmit (e:any) {
+  
+  
+  function handleSearch (e:any) {
         e.preventDefault();
+        
   }
   
   
@@ -91,6 +96,7 @@ const [checkin,setCheckin] = useState<Dayjs | null>(null)
               <input className="w-2/3 sm:w-5/6" id="place"
               type="text"
                onChange={((e)=>setPlace(e.target.value))} value={place}  placeholder="" />
+               {err.state && <div className='text-red-500 text-sm'>*{err.msg}</div> }
             </div>
             <div className="flex flex-col mx-ato w-5/6 sm:w-1/4 "> 
             <div className="text-sm text-black">Ngày đi  </div>
@@ -106,7 +112,7 @@ const [checkin,setCheckin] = useState<Dayjs | null>(null)
             value={checkout} setValue={(newValue:any) => setCheckout(newValue)} isSubmit={false} />
             </div>
             <div className="w-5/6 flex-shrink-1 sm:w-1/6 lg:ml-4">
-                <button onClick={handleSubmit}>
+                <button onClick={handleSearch}>
                 <FaSearch className="rounded-full text-lg p-2 w-10 h-10 bg-red-500 text-white "/>
                 </button></div>
           </form>
