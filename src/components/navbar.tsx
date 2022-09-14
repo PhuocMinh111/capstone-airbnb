@@ -6,12 +6,17 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Navigate, useNavigate } from "react-router-dom";
 import Search from "./search";
 
+
+
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Example() {
+export default function NavBar() {
   const navigate = useNavigate();
+  
+    
+    
   return (
     <Disclosure as="nav" className="bg-gray-800 h-auto">
       {({ open }) => (
