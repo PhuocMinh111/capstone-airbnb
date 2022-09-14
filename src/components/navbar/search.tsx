@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FaSearch } from "react-icons/fa";
 import BasicDatePicker from "./datePicker";
-import { CHECK_IN, CHECK_OUT, navigation, menu } from "../constants/common";
+import { CHECK_IN, CHECK_OUT, navigation, menu } from "../../constants/common";
 import { Dayjs } from "dayjs";
 
 
@@ -80,33 +80,39 @@ const [checkin,setCheckin] = useState<Dayjs | null>(null)
           <form
             className={`${
               show ? "block" : "hidden"
-            } flex flex-col items-center justify-between rounded-md sm:flex-row h-auto py-2 px-4 border-2 w-1/2 bg-light sm:w-auto  sm:rounded-full shadow-sm`}
+            } flex flex-col items-center justify-between rounded-md 
+            sm:flex-row h-auto py-2 px-4 border-2 w-2/3 bg-light sm:w-auto  sm:rounded-full shadow-sm`}
             
           >
-            <div className="flex flex-col lg:w-1/4 mx-2 ">
+            <div className="flex flex-col w-full  lg:w-1/4 mx-2 ">
               <label id="place" htmlFor="place" className="text-sm ">
                 dia diem
               </label>
-              <input id="place"
+              <input className="w-2/3 sm:w-5/6" id="place"
               type="text"
                onChange={((e)=>setPlace(e.target.value))} value={place}  placeholder="" />
             </div>
             <div className="flex flex-col mx-ato w-5/6 sm:w-1/4 "> 
             <div className="text-sm text-black">Ngày đi  </div>
-            <BasicDatePicker value={checkin} setValue={(newValue) => setCheckin(newValue)} isSubmit={false} />
+            <BasicDatePicker
+             value={checkin} 
+             name={'ngày đi'}
+             setValue={(newValue:any) => setCheckin(newValue)} isSubmit={false} />
             </div>
             <div className="flex flex-col mx-ato w-5/6 sm:w-1/4 "> 
             <div className="text-sm text-black">Ngày về  </div>
-            <BasicDatePicker value={checkout} setValue={(newValue) => setCheckout(newValue)} isSubmit={false} />
+            <BasicDatePicker 
+            name={'ngày về'}
+            value={checkout} setValue={(newValue:any) => setCheckout(newValue)} isSubmit={false} />
             </div>
-            <div className="w-5/6 sm:w-1/4 lg:ml-4">
+            <div className="w-5/6 flex-shrink-1 sm:w-1/6 lg:ml-4">
                 <button onClick={handleSubmit}>
                 <FaSearch className="rounded-full text-lg p-2 w-10 h-10 bg-red-500 text-white "/>
                 </button></div>
           </form>
         </div>
       ) : (
-        <div className="flex h-5 py-4 border-2 justify-center bg-light items-center  sm:w-2/3 rounded-full shadow-sm">
+        <div className="flex h-3 sm:h-5 py-4 border-2 justify-center bg-light items-center  sm:w-2/3 rounded-full shadow-sm">
           {menu.map((ele) => {
             return (
               <button
