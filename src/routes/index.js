@@ -1,9 +1,10 @@
 import { lazy } from "react";
 import { useRoutes } from "react-router-dom";
 import Places from "../pages/places";
-import SearchInfo from "../pages/searchInfo";
+
 const HomeLayout = lazy(() => import("../layouts/HomeLayout"));
 const Home = lazy(() => import("../pages/home"));
+const SearchLocation = lazy(()=> import('../pages/searchLocation'))
 export default function Routes() {
   const routing = useRoutes([
     {
@@ -15,8 +16,8 @@ export default function Routes() {
           element: <Home />,
         },
         {
-            path:'/s/:searchId',
-            element:<searchInfo/>
+            path:'/s/:locationId',
+            element:<SearchLocation/>
         },
         {
             path:'/places',
