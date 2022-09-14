@@ -6,8 +6,6 @@ import BasicDatePicker from "./datePicker";
 import { CHECK_IN, CHECK_OUT, navigation, menu } from "../../constants/common";
 import { Dayjs } from "dayjs";
 
-
-
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
@@ -17,23 +15,18 @@ function Search() {
   const [value, setvalue] = useState();
   const [show, setShow] = useState<boolean>(false);
   const containRef = useRef<HTMLDivElement>(null);
-const [checkin,setCheckin] = useState<Dayjs | null>(null)  
-  const [checkout,setCheckout] = useState<Dayjs | null>(null);  
-  const[place,setPlace] = useState<any>(null);
- const [err,setErr] = useState<{msg:string;state:boolean}>({
-      msg:'',
-      state:false,
-    })
-  
-  
-  
-  
-  function handleSearch (e:any) {
-        e.preventDefault();
-        
+  const [checkin, setCheckin] = useState<Dayjs | null>(null);
+  const [checkout, setCheckout] = useState<Dayjs | null>(null);
+  const [place, setPlace] = useState<any>(null);
+  const [err, setErr] = useState<{ msg: string; state: boolean }>({
+    msg: "",
+    state: false,
+  });
+
+  function handleSearch(e: any) {
+    e.preventDefault();
   }
-  
-  
+
   useEffect(() => {
     function outsideClose(e: any | undefined) {
       const dialog = document.querySelector('[role="dialog"]');
@@ -47,7 +40,7 @@ const [checkin,setCheckin] = useState<Dayjs | null>(null)
       }
     }
     document.addEventListener("click", outsideClose, { capture: true });
-    
+
     return () => {
       document.removeEventListener("click", outsideClose);
     };
@@ -85,48 +78,52 @@ const [checkin,setCheckin] = useState<Dayjs | null>(null)
           <form
             className={`${
               show ? "block" : "hidden"
-<<<<<<< HEAD:src/components/search.tsx
-            } flex flex-col sm:flex-row h-auto px-4 border-2 bg-light text-sm lg:text-xl lg:w-auto w-5/6 rounded-full shadow-sm`}
-=======
             } flex flex-col items-center justify-between rounded-md 
             sm:flex-row h-auto py-2 px-4 border-2 w-2/3 bg-light sm:w-auto  sm:rounded-full shadow-sm`}
-            
->>>>>>> 13cdccf40688623f882c6015173e03bc6873a550:src/components/navbar/search.tsx
           >
             <div className="flex flex-col w-full  lg:w-1/4 mx-2 ">
               <label id="place" htmlFor="place" className="text-sm ">
                 dia diem
               </label>
-              <input className="w-2/3 sm:w-5/6" id="place"
-              type="text"
-               onChange={((e)=>setPlace(e.target.value))} value={place}  placeholder="" />
-               {err.state && <div className='text-red-500 text-sm'>*{err.msg}</div> }
+              <input
+                className="w-2/3 sm:w-5/6"
+                id="place"
+                type="text"
+                onChange={(e) => setPlace(e.target.value)}
+                value={place}
+                placeholder=""
+              />
+              {err.state && (
+                <div className="text-red-500 text-sm">*{err.msg}</div>
+              )}
             </div>
-            <div className="flex flex-col mx-ato w-5/6 sm:w-1/4 "> 
-            <div className="text-sm text-black">Ngày đi  </div>
-            <BasicDatePicker
-             value={checkin} 
-             name={'ngày đi'}
-             setValue={(newValue:any) => setCheckin(newValue)} isSubmit={false} />
+            <div className="flex flex-col mx-ato w-5/6 sm:w-1/4 ">
+              <div className="text-sm text-black">Ngày đi </div>
+              <BasicDatePicker
+                value={checkin}
+                name={"ngày đi"}
+                setValue={(newValue: any) => setCheckin(newValue)}
+                isSubmit={false}
+              />
             </div>
-            <div className="flex flex-col mx-ato w-5/6 sm:w-1/4 "> 
-            <div className="text-sm text-black">Ngày về  </div>
-            <BasicDatePicker 
-            name={'ngày về'}
-            value={checkout} setValue={(newValue:any) => setCheckout(newValue)} isSubmit={false} />
+            <div className="flex flex-col mx-ato w-5/6 sm:w-1/4 ">
+              <div className="text-sm text-black">Ngày về </div>
+              <BasicDatePicker
+                name={"ngày về"}
+                value={checkout}
+                setValue={(newValue: any) => setCheckout(newValue)}
+                isSubmit={false}
+              />
             </div>
             <div className="w-5/6 flex-shrink-1 sm:w-1/6 lg:ml-4">
-                <button onClick={handleSearch}>
-                <FaSearch className="rounded-full text-lg p-2 w-10 h-10 bg-red-500 text-white "/>
-                </button></div>
+              <button onClick={handleSearch}>
+                <FaSearch className="rounded-full text-lg p-2 w-10 h-10 bg-red-500 text-white " />
+              </button>
+            </div>
           </form>
         </div>
       ) : (
-<<<<<<< HEAD:src/components/search.tsx
-        <div className="flex text-sm lg:text-xl mx-auto  h-5 py-4 border-2 justify-center bg-light items-center  sm:w-2/3 rounded-full shadow-sm">
-=======
         <div className="flex h-3 sm:h-5 py-4 border-2 justify-center bg-light items-center  sm:w-2/3 rounded-full shadow-sm">
->>>>>>> 13cdccf40688623f882c6015173e03bc6873a550:src/components/navbar/search.tsx
           {menu.map((ele) => {
             return (
               <button
