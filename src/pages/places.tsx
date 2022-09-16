@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SinglePlace from "../components/singlePlace";
+import UseIntersectionObserver from "../hooks/useIntersectionObserver";
 import { FetchPlaceApi } from "../services/place.api";
 import { IPlace } from "../types/interface";
 
@@ -12,9 +13,7 @@ function Places() {
 
   const fetchPlaceApi = async () => {
     const result = await FetchPlaceApi();
-    console.log(result);
     setPlaces(result.data.slice(0, 20));
-    // setPlaces(result);
   };
   if (!places) return null;
   return (

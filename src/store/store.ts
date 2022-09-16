@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import NavbarReducer from './reducers/navBarReducer'
+import NavbarReducer from "./reducers/navBarReducer";
+import placesReducer from "./reducers/placesReducer";
 export const store = configureStore({
   reducer: {
-      navbar:NavbarReducer,
+    navbar: NavbarReducer,
+    places: placesReducer,
   },
 });
 
