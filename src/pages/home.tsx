@@ -1,11 +1,12 @@
 import React from "react";
-import Places from "./places";
+import Rooms from "../components/rooms/Rooms";
 
 const Home = () => {
-  return <>
-    <Places/>
-      
-  </>;
+  return (
+    <>
+      <Rooms />
+    </>
+  );
 };
 
 export default Home;
