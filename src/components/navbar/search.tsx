@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeSearch, openSearch } from "../../store/reducers/navBarReducer";
 
 import { RootState } from "../../store/store";
+import { IPlace } from "../../types/interface";
+import { FetchPlaceApi } from "../../services/place.api";
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
@@ -34,11 +36,12 @@ function Search() {
   });
   //-----------handle search---------------------
 
-  function handleSearch(e: any) {
+  async function handleSearch(e: any) {
     e.preventDefault();
     console.log("search");
-
-    dispatch(searchPlace(place));
+    const data = await fetchPlace();
+    dispatch(searchPlace({ search: place, data: data }));
+    dispatch(closeSearch());
   }
 
   // ----click close search bar--------------
@@ -71,6 +74,12 @@ function Search() {
     if (selected.length > 1) navigate("/places");
   }, [selected]);
 
+  //------fetch-----------
+
+  const fetchPlace = async (): Promise<IPlace[]> => {
+    const result = await FetchPlaceApi();
+    return result.data.slice(0, 50);
+  };
   //-----------------------------
   return (
     <Wrapper className="mx-auto mt-2 lg:w-2/3 lg:h-auto sm:w-25">

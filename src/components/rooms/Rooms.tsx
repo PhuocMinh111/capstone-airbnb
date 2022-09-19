@@ -15,7 +15,6 @@ function Room() {
   );
   useEffect(() => {
     fetchRoom();
-    fetchRoom();
   }, []);
 
   //   console.log(canClick);
@@ -23,11 +22,6 @@ function Room() {
   const fetchRoom = async () => {
     const result = await FetchRoomApi();
     setRooms(shuffleArray(result.data.slice(0, 30)));
-  };
-
-  const fetchPlace = async () => {
-    const result = await FetchPlaceApi();
-    dispatch(setPlace(result.data.slice(0, 50)));
   };
 
   if (!rooms) return null;

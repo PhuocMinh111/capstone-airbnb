@@ -6,6 +6,7 @@ import type { RootState } from "../store/store";
 import { FetchPlaceApi } from "../services/place.api";
 import { IPlace } from "../types/interface";
 import styled from "styled-components";
+import { setPlace } from "../store/reducers/placesReducer";
 
 function Places() {
   const [place, setPlaces] = useState<Array<IPlace> | any>();
@@ -15,14 +16,19 @@ function Places() {
 
   const { selected, places } = useSelector((state: RootState) => state.places);
 
-  // useEffect(() => {
-  //   setPlaces(places);
-  // }, [places]);
+  useEffect(() => {
+    fetchPlace();
+  }, []);
   // console.log(place);
 
   //   console.log(canClick);
   // console.log(isSearchOpen);
 
+  const fetchPlace = async () => {
+    const result = await FetchPlaceApi();
+
+    setPlaces(result.data.slice(0, 50));
+  };
   return (
     <div className="grid relative grid-cols-1 md:grid-cols-4 ">
       {selected.length < 1
@@ -44,3 +50,6 @@ const ClickArea = styled.div`
   opacity: 0.3;
 `;
 export default Places;
+function dispatch(arg0: any) {
+  throw new Error("Function not implemented.");
+}

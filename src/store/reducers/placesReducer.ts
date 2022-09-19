@@ -12,6 +12,10 @@ const INITAL_STATE: IPlaceReducer = {
   index: 0,
   selected: [],
 };
+interface searchAction {
+  search: string;
+  data: IPlace[];
+}
 
 const placeReducer = createSlice({
   name: "searchForm",
@@ -25,18 +29,21 @@ const placeReducer = createSlice({
     loadPlace: (state) => {
       state.index += 20;
     },
-    searchPlace: (state, action: PayloadAction<string>) => {
+    searchPlace: (state, action: PayloadAction<searchAction>) => {
       console.log(action.payload);
       let idx: number;
+      const data = action.payload.data;
       let result: Array<IPlace> = [];
-      for (let i = 0; i < state.places.length; i++) {
-        const element = state.places[i];
-        console.log(element);
+      for (let i = 0; i < data.length; i++) {
+        const element = data[i];
 
-        const province = element.province.toLowerCase();
-        if (province.indexOf(action.payload) !== -1) result.push(element);
+        const province = element.province;
+        console.log(province);
+        if (province === undefined) continue;
+        if (province.indexOf(action.payload.search) !== -1)
+          result.push(element);
       }
-      console.log(state.places);
+      console.log(result);
 
       state.selected = result;
     },
