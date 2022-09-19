@@ -1,13 +1,14 @@
 import React from "react";
-import { FaStar } from "react-icons/fa";
+import { FaStar,FaBed,FaWifi,FaSwimmingPool } from "react-icons/fa";
+
 import { AiOutlineHeart } from "react-icons/ai";
 import styled from "styled-components";
-import { IPlace } from "../../types/interface";
+import { IRoom } from "../../types/interface";
 import { useNavigate } from "react-router-dom";
 
-function SinglePlace({ ...place }: IPlace) {
+function SingleRoom({ ...place }: IRoom) {
   const navigate = useNavigate();
-  const { _id, name, image, country, valueate, province } = place;
+  const { _id,elevator,pool,dryer,gym,kitchen,bedRoom,wifi ,price,name, image, valueate, description } = place;
   return (
     <div
       onClick={() => navigate(`/detail/${_id}`)}
@@ -20,15 +21,15 @@ function SinglePlace({ ...place }: IPlace) {
       ></img>
       <div className="flex justify-between">
         <h5 className="text-bold">{name}</h5>
-
+           
         <div>
           <FaStar />
           <span>{valueate}</span>
         </div>
       </div>
-      <h5 className="text-slate-400 text-sm">
-        {province}, {country}
-      </h5>
+      <h5 className='text-slate-500 text-sm'> 
+       {description.substring(0,30)}...</h5>
+      <h5 className="text-slate-800 text-sm"><span>giá </span> {price} </h5>
       <button className="absolute text-lg text-red-600 top-5 right-5">
         <AiOutlineHeart />
       </button>
@@ -37,4 +38,4 @@ function SinglePlace({ ...place }: IPlace) {
 }
 
 const Wrapper = styled.div``;
-export default SinglePlace;
+export default SingleRoom;
