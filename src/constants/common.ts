@@ -5,9 +5,9 @@ export const CHECK_IN: string = "checkIn";
 export const CHECK_OUT: string = "checkOut";
 
 export const navigation = [
-  { name: "Dashboard", href: "#", current: false },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
+  { name: "Vị trí", navigate: "navigate", current: false },
+  { name: "Team", navigate: "", current: false },
+  { name: "Projects", navigate: "", current: false },
 ];
 export const menu = [
   { name: "Chỗ ở bất kỳ", id: 0 },
