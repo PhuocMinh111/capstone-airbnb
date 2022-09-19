@@ -5,28 +5,43 @@ import { FaSearch } from "react-icons/fa";
 import BasicDatePicker from "./datePicker";
 import { CHECK_IN, CHECK_OUT, navigation, menu } from "../../constants/common";
 import { Dayjs } from "dayjs";
+import { searchPlace } from "../../store/reducers/placesReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { closeSearch, openSearch } from "../../store/reducers/navBarReducer";
 
+import { RootState } from "../../store/store";
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
 function Search() {
+  // router
   const navigate = useNavigate();
+
+  //---redux-----
+  const dispatch = useDispatch();
+  const selected = useSelector((state: RootState) => state.places.selected);
+  //-----------
   const [value, setvalue] = useState();
   const [show, setShow] = useState<boolean>(false);
   const containRef = useRef<HTMLDivElement>(null);
   const [checkin, setCheckin] = useState<Dayjs | null>(null);
   const [checkout, setCheckout] = useState<Dayjs | null>(null);
-  const [place, setPlace] = useState<any>(null);
+  const [place, setPlace] = useState<any>("");
   const [err, setErr] = useState<{ msg: string; state: boolean }>({
     msg: "",
     state: false,
   });
+  //-----------handle search---------------------
 
   function handleSearch(e: any) {
     e.preventDefault();
+    console.log("search");
+
+    dispatch(searchPlace(place));
   }
 
+  // ----click close search bar--------------
   useEffect(() => {
     function outsideClose(e: any | undefined) {
       const dialog = document.querySelector('[role="dialog"]');
@@ -37,6 +52,7 @@ function Search() {
         !dialog?.contains(e.target)
       ) {
         setShow(false);
+        dispatch(closeSearch());
       }
     }
     document.addEventListener("click", outsideClose, { capture: true });
@@ -46,6 +62,16 @@ function Search() {
     };
   }, [containRef]);
 
+  //-----search effect-----------
+
+  useEffect(() => {
+    if (selected.length < 1 && place !== "") {
+      return setErr({ state: true, msg: "nơi bạn tìm không có" });
+    }
+    if (selected.length > 1) navigate("/places");
+  }, [selected]);
+
+  //-----------------------------
   return (
     <Wrapper className="mx-auto mt-2 lg:w-2/3 lg:h-auto sm:w-25">
       <div
@@ -57,7 +83,6 @@ function Search() {
           {navigation.map((item, index) => (
             <a
               key={item.name}
-              href={item.href}
               className={classNames(
                 item.current
                   ? "bg-gray-900 text-white"
@@ -65,7 +90,7 @@ function Search() {
                 "px-3 py-2 rounded-md no-underline text-sm font-medium"
               )}
               aria-current={item.current ? "page" : undefined}
-              onClick={() => navigate(`/${item.name}`)}
+              onClick={() => navigate(`${item.navigate}`)}
             >
               {item.name}
             </a>
@@ -89,7 +114,10 @@ function Search() {
                 className="w-2/3 sm:w-5/6"
                 id="place"
                 type="text"
-                onChange={(e) => setPlace(e.target.value)}
+                onChange={(e) => {
+                  setPlace(e.target.value);
+                  setErr({ state: false, msg: "" });
+                }}
                 value={place}
                 placeholder=""
               />
@@ -129,6 +157,7 @@ function Search() {
               <button
                 onClick={() => {
                   setShow(true);
+                  dispatch(openSearch());
                 }}
                 className="z-50 w-1/4 cursor-pointer text-lg"
               >
@@ -138,7 +167,10 @@ function Search() {
           })}
           <FaSearch
             role="button"
-            onClick={() => setShow(true)}
+            onClick={() => {
+              setShow(true);
+              dispatch(openSearch());
+            }}
             className="rounded-full text-white hover w-8 h-8 bg-red-500 p-2"
           />
         </div>
