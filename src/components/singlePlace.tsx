@@ -3,13 +3,18 @@ import { FaStar } from "react-icons/fa";
 import { AiOutlineHeart } from "react-icons/ai";
 import styled from "styled-components";
 import { IPlace } from "../types/interface";
+import { useNavigate } from "react-router-dom";
 
 function SinglePlace({ ...place }: IPlace) {
+  const navigate = useNavigate();
   const { _id, name, image, country, valueate, province } = place;
   return (
-    <Wrapper className="flex relative p-3 gap-4 shadow-md mx-3 my-2 rounded-xl flex-col">
+    <div
+      onClick={() => navigate(`/detail/${_id}`)}
+      className="flex transition ease-out relative hover:z-index:1000 hover:scale-110 p-3 gap-4 shadow-md mx-3 my-2 rounded-xl flex-col"
+    >
       <img
-        className="h-58 w-58 relative objects-cover rounded-lg"
+        className="h-58 w-58  relative objects-cover rounded-lg"
         alt="place-img"
         src={image}
       ></img>
@@ -27,7 +32,7 @@ function SinglePlace({ ...place }: IPlace) {
       <button className="absolute text-lg text-red-600 top-5 right-5">
         <AiOutlineHeart />
       </button>
-    </Wrapper>
+    </div>
   );
 }
 
