@@ -11,7 +11,7 @@ function SinglePlace({ ...place }: IPlace) {
   return (
     <div
       onClick={() => navigate(`/detail/${_id}`)}
-      className="flex transition ease-out relative hover:z-index:1000 hover:scale-110 p-3 gap-4 shadow-md mx-3 my-2 rounded-xl flex-col"
+      className="flex transition ease-out relative hover:z-index:100 hover:scale-110 p-3 gap-4 shadow-md mx-3 my-2 rounded-xl flex-col"
     >
       <img
         className="h-58 w-58  relative objects-cover rounded-lg"

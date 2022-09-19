@@ -6,12 +6,20 @@ import BasicDatePicker from "./datePicker";
 import { CHECK_IN, CHECK_OUT, navigation, menu } from "../../constants/common";
 import { Dayjs } from "dayjs";
 
+import { useDispatch } from "react-redux";
+import { closeSearch, openSearch } from "../../store/reducers/navBarReducer";
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
 function Search() {
+  // router
   const navigate = useNavigate();
+
+  //---redux-----
+  const dispatch = useDispatch();
+
+  //-----------
   const [value, setvalue] = useState();
   const [show, setShow] = useState<boolean>(false);
   const containRef = useRef<HTMLDivElement>(null);
@@ -26,7 +34,7 @@ function Search() {
   function handleSearch(e: any) {
     e.preventDefault();
   }
-
+  // ----click close search bar--------------
   useEffect(() => {
     function outsideClose(e: any | undefined) {
       const dialog = document.querySelector('[role="dialog"]');
@@ -37,6 +45,7 @@ function Search() {
         !dialog?.contains(e.target)
       ) {
         setShow(false);
+        dispatch(closeSearch());
       }
     }
     document.addEventListener("click", outsideClose, { capture: true });
@@ -45,6 +54,10 @@ function Search() {
       document.removeEventListener("click", outsideClose);
     };
   }, [containRef]);
+
+  // dispatch searchbar open
+
+  //----------------
 
   return (
     <Wrapper className="mx-auto mt-2 lg:w-2/3 lg:h-auto sm:w-25">
@@ -129,6 +142,7 @@ function Search() {
               <button
                 onClick={() => {
                   setShow(true);
+                  dispatch(openSearch());
                 }}
                 className="z-50 w-1/4 cursor-pointer text-lg"
               >
@@ -138,7 +152,10 @@ function Search() {
           })}
           <FaSearch
             role="button"
-            onClick={() => setShow(true)}
+            onClick={() => {
+              setShow(true);
+              dispatch(openSearch());
+            }}
             className="rounded-full text-white hover w-8 h-8 bg-red-500 p-2"
           />
         </div>
