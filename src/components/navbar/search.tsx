@@ -5,9 +5,11 @@ import { FaSearch } from "react-icons/fa";
 import BasicDatePicker from "./datePicker";
 import { CHECK_IN, CHECK_OUT, navigation, menu } from "../../constants/common";
 import { Dayjs } from "dayjs";
-
-import { useDispatch } from "react-redux";
+import { searchPlace } from "../../store/reducers/placesReducer";
+import { useDispatch, useSelector } from "react-redux";
 import { closeSearch, openSearch } from "../../store/reducers/navBarReducer";
+
+import { RootState } from "../../store/store";
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
@@ -18,7 +20,7 @@ function Search() {
 
   //---redux-----
   const dispatch = useDispatch();
-
+  const selected = useSelector((state: RootState) => state.places.selected);
   //-----------
   const [value, setvalue] = useState();
   const [show, setShow] = useState<boolean>(false);
@@ -30,10 +32,15 @@ function Search() {
     msg: "",
     state: false,
   });
+  //-----------handle search---------------------
 
   function handleSearch(e: any) {
     e.preventDefault();
+    console.log("search");
+
+    dispatch(searchPlace(place));
   }
+
   // ----click close search bar--------------
   useEffect(() => {
     function outsideClose(e: any | undefined) {
@@ -55,9 +62,12 @@ function Search() {
     };
   }, [containRef]);
 
-  // dispatch searchbar open
-
-  //----------------
+  useEffect(() => {
+    if (selected.length < 1 && place !== null) {
+      return setErr({ state: true, msg: "nơi bạn tìm không có" });
+    }
+    navigate("/places");
+  }, [selected]);
 
   return (
     <Wrapper className="mx-auto mt-2 lg:w-2/3 lg:h-auto sm:w-25">
@@ -101,7 +111,10 @@ function Search() {
                 className="w-2/3 sm:w-5/6"
                 id="place"
                 type="text"
-                onChange={(e) => setPlace(e.target.value)}
+                onChange={(e) => {
+                  setPlace(e.target.value);
+                  setErr({ state: false, msg: "" });
+                }}
                 value={place}
                 placeholder=""
               />

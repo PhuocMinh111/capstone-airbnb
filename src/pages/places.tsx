@@ -1,17 +1,20 @@
 import { useSelect } from "@mui/base";
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import SinglePlace from "../components/singlePlace/singlePlace";
 import type { RootState } from "../store/store";
 import { FetchPlaceApi } from "../services/place.api";
 import { IPlace } from "../types/interface";
 import styled from "styled-components";
-
+import { setPlace } from "../store/reducers/placesReducer";
 function Places() {
   const [places, setPlaces] = useState<Array<IPlace> | any>();
   const isSearchOpen = useSelector(
     (state: RootState) => state.navbar.isSearchOpen
   );
+  const selected = useSelector((state: RootState) => state.places.selected);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     fetchPlaceApi();
   }, []);
@@ -21,13 +24,16 @@ function Places() {
   const fetchPlaceApi = async () => {
     const result = await FetchPlaceApi();
     setPlaces(result.data.slice(0, 20));
+    dispatch(setPlace(result.data));
   };
   if (!places) return null;
   return (
     <div className="grid relative grid-cols-1 md:grid-cols-4 ">
-      {places?.map((item: IPlace, index: any) => {
-        return <SinglePlace {...item} key={index} />;
-      })}
+      {selected.length < 1
+        ? places?.map((item: IPlace, index: any) => {
+            return <SinglePlace {...item} key={index} />;
+          })
+        : selected.map((item, index) => <SinglePlace {...item} key={index} />)}
       {isSearchOpen && <ClickArea className=" bg-slate-500  "></ClickArea>}
     </div>
   );
