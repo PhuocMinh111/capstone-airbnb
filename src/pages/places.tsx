@@ -1,7 +1,7 @@
 import { useSelect } from "@mui/base";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import SinglePlace from "../components/singlePlace";
+import SinglePlace from "../components/singlePlace/singlePlace";
 import type { RootState } from "../store/store";
 import { FetchPlaceApi } from "../services/place.api";
 import { IPlace } from "../types/interface";

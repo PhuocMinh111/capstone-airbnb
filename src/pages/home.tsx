@@ -3,7 +3,8 @@ import Places from "./places";
 
 const Home = () => {
   return <>
-    <Places/>  
+    <Places/>
+      
   </>;
 };
 

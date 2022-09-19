@@ -70,7 +70,6 @@ function Search() {
           {navigation.map((item, index) => (
             <a
               key={item.name}
-              href={item.href}
               className={classNames(
                 item.current
                   ? "bg-gray-900 text-white"
@@ -78,7 +77,7 @@ function Search() {
                 "px-3 py-2 rounded-md no-underline text-sm font-medium"
               )}
               aria-current={item.current ? "page" : undefined}
-              onClick={() => navigate(`/${item.name}`)}
+              onClick={() => navigate(`${item.navigate}`)}
             >
               {item.name}
             </a>
