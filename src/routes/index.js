@@ -4,6 +4,7 @@ import Places from "../pages/places";
 import SearchInfo from "../pages/searchInfo";
 const HomeLayout = lazy(() => import("../layouts/HomeLayout"));
 const Home = lazy(() => import("../pages/home"));
+const Detail = lazy(() => import("../pages/detail"));
 export default function Routes() {
   const routing = useRoutes([
     {
@@ -15,13 +16,17 @@ export default function Routes() {
           element: <Home />,
         },
         {
-            path:'/s/:searchId',
-            element:<searchInfo/>
+          path: "/s/:searchId",
+          element: <searchInfo />,
         },
         {
-            path:'/places',
-            element:<Places/>
-        }
+          path: "/places",
+          element: <Places />,
+        },
+        {
+          path: "/detail/:detailId",
+          element: <Detail />,
+        },
       ],
     },
   ]);
