@@ -18,7 +18,6 @@ const navBarSlice = createSlice({
       console.log("open");
       state.isSideBarOpen = true;
     },
-
     closeSidebar: (state): void => {
       state.isSideBarOpen = false;
     },

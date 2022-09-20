@@ -5,7 +5,7 @@ export const CHECK_IN: string = "checkIn";
 export const CHECK_OUT: string = "checkOut";
 
 export const navigation = [
-  { name: "Vị trí", navigate: "navigate", current: false },
+  { name: "Vị trí", navigate: "places", current: false },
   { name: "Team", navigate: "", current: false },
   { name: "Projects", navigate: "", current: false },
 ];

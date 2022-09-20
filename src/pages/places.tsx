@@ -9,12 +9,12 @@ import styled from "styled-components";
 import { setPlace } from "../store/reducers/placesReducer";
 
 function Places() {
-  const [place, setPlaces] = useState<Array<IPlace> | any>();
+  const [places, setPlaces] = useState<Array<IPlace> | any>();
   const isSearchOpen = useSelector(
     (state: RootState) => state.navbar.isSearchOpen
   );
 
-  const { selected, places } = useSelector((state: RootState) => state.places);
+  const { selected } = useSelector((state: RootState) => state.places);
 
   useEffect(() => {
     fetchPlace();
