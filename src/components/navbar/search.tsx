@@ -95,8 +95,8 @@ function Search() {
               className={classNames(
                 item.current
                   ? "bg-gray-900 text-white"
-                  : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                "px-3 py-2 rounded-md no-underline text-sm font-medium"
+                  : "text-gray-300 cursor-pointer hover:bg-gray-700 hover:text-white",
+                "px-3 py-2 rounded-md  cursor-pointer no-underline text-sm font-medium"
               )}
               aria-current={item.current ? "page" : undefined}
               onClick={() => navigate(`${item.navigate}`)}
@@ -117,7 +117,7 @@ function Search() {
           >
             <div className="flex flex-col w-full  lg:w-1/4 mx-2 ">
               <label id="place" htmlFor="place" className="text-sm ">
-                dia diem
+                địa điểm
               </label>
               <input
                 className="w-2/3 sm:w-5/6"
