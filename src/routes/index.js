@@ -25,7 +25,7 @@ export default function Routes() {
           element: <Places />,
         },
         {
-          path: "/placedetail/:detailId",
+          path: "/placedetail/:placeId",
           element: <PlaceDetail />,
         },
       ],

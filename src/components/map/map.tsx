@@ -1,31 +1,42 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import { google_token } from "../../constants/common";
-
-function Map({ place }) {
+interface Place {
+  place: string;
+}
+function Map({ place }: Place) {
   const ref = React.useRef<HTMLDivElement>(null);
   const [map, setMap] = React.useState<google.maps.Map>();
 
   React.useEffect(() => {
     if (ref.current && !map) {
       setMap(
-        new window.google.maps.Map(ref.current, { zoom: 4, center: place })
+        new window.google.maps.Map(ref.current, {
+          zoom: 4,
+          center: { lat: 1, lng: 1 },
+        })
       );
     }
   }, [ref, map]);
 
-  return <div style={{ width: "500px", height: "500px" }} ref={ref}></div>;
+  return <div className="w-58 h-58 mx-auto" ref={ref}></div>;
 }
-function WrappedMap({ place }) {
+
+//------------wrapped map-------------
+
+function WrappedMap({ place }: Place) {
+  const render = (status: Status) => {
+    return <h1>{status}</h1>;
+  };
   return (
-    <Wrapper apiKey={google_token}>
+    <Wrapper render={render} apiKey={google_token}>
       <Map place={place} />
     </Wrapper>
   );
 }
 export default WrappedMap;
 
-function GetLatlong(adress) {
+function GetLatlong(address: string) {
   var geocoder = new google.maps.Geocoder();
   let latitude, longtitude;
   geocoder.geocode(
@@ -33,11 +44,12 @@ function GetLatlong(adress) {
       address: address,
     },
     function (results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        latitude = results[0].geometry.location.lat();
-        longitude = results[0].geometry.location.lng();
+      if (status === google.maps.GeocoderStatus.OK) {
+        console.log(results);
+        // latitude = results?[0].geometry.location.lat();
+        // longitude = results?[0].geometry.location.lng();
       }
     }
   );
-   return { lat: latitude, lng: longtitude };
+  return { lat: latitude, lng: longtitude };
 }

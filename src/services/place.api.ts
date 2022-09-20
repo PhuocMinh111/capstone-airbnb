@@ -19,3 +19,10 @@ export const FetchSingleRoomApi = (id: string): AxiosPromise => {
     method: "get",
   });
 };
+
+export const FetchSinglePlaceApi = (id: string | undefined): AxiosPromise => {
+  return request({
+    url: `/api/locations/${id}`,
+    method: "get",
+  });
+};
