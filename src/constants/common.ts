@@ -14,3 +14,5 @@ export const menu = [
   { name: "Ngày đi", id: 1 },
   { name: "Ngày về", id: 2 },
 ];
+
+export const google_token: string = "AIzaSyAAd0UXK7Bp06Lt1KIcVdFKdrz_AckEb6A";
