@@ -10,7 +10,7 @@ function SinglePlace({ ...place }: IPlace) {
   const { _id, name, image, country, valueate, province } = place;
   return (
     <div
-      onClick={() => navigate(`/detail/${_id}`)}
+      onClick={() => navigate(`/placedetail/${_id}`)}
       className="flex transition ease-out relative hover:z-index:100 hover:scale-110 p-3 gap-4 shadow-md mx-3 my-2 rounded-xl flex-col"
     >
       <img
