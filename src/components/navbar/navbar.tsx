@@ -33,7 +33,10 @@ export default function NavBar() {
                 </span>
               </div>
               <div className="flex  flex-1 md:text-2xl sm:text-sm items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="block flex-1 md:flex-row md:flex flex-shrink-0 text-slate-50 items-center">
+                <div
+                  onClick={() => navigate("/")}
+                  className="block flex-1 cursor-pointer md:flex-row md:flex flex-shrink-0 text-slate-50 items-center"
+                >
                   <div>
                     <FaAirbnb className="text-slate-50 h-8 w-8 hidden h-8 w-auto lg:hidden" />
                     <FaAirbnb
