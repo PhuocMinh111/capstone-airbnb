@@ -35,3 +35,11 @@ export const removeAccents = (str: string): string => {
   }
   return str;
 };
+
+export const getLatlong = (address: string | undefined) => {
+  var geocoder = new google.maps.Geocoder();
+  return geocoder.geocode({
+    address: address,
+  });
+  // return result;
+};
