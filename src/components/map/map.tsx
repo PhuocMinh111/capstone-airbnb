@@ -1,55 +1,37 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useMemo } from "react";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import { google_token } from "../../constants/common";
-interface Place {
-  place: string;
+import { GoogleMap, MarkerF } from "@react-google-maps/api";
+import { getLatlong } from "../../Utils/util";
+interface IPos {
+  lat: number;
+  lng: number;
 }
-function Map({ place }: Place) {
+function Map({ place }: { place: string | undefined }) {
   const ref = React.useRef<HTMLDivElement>(null);
   const [map, setMap] = React.useState<google.maps.Map>();
+  const [pos, setPos] = useState<IPos | undefined>();
+  //   console.log(getLatlong(place));
+  //   const pos = useMemo(() => ({ lat: 10, lng: 10 }), []);
+  useEffect(() => {
+    getLatlong(place).then((res: any) => {
+      console.log(res);
+      const lat = res.results[0].geometry.location.lat();
+      const lng = res.results[0].geometry.location.lng();
+      setPos({ lat: lat, lng: lng });
+    });
+  }, []);
 
-  React.useEffect(() => {
-    if (ref.current && !map) {
-      setMap(
-        new window.google.maps.Map(ref.current, {
-          zoom: 4,
-          center: { lat: 1, lng: 1 },
-        })
-      );
-    }
-  }, [ref, map]);
-
-  return <div className="w-58 h-58 mx-auto" ref={ref}></div>;
-}
-
-//------------wrapped map-------------
-
-function WrappedMap({ place }: Place) {
-  const render = (status: Status) => {
-    return <h1>{status}</h1>;
-  };
+  if (!pos) return <>loading</>;
   return (
-    <Wrapper render={render} apiKey={google_token}>
-      <Map place={place} />
-    </Wrapper>
+    <GoogleMap
+      zoom={14}
+      center={pos}
+      mapContainerClassName="w-full h-full sm:w-58 sm:h-58"
+    >
+      <MarkerF position={pos} />
+    </GoogleMap>
   );
 }
-export default WrappedMap;
 
-function GetLatlong(address: string) {
-  var geocoder = new google.maps.Geocoder();
-  let latitude, longtitude;
-  geocoder.geocode(
-    {
-      address: address,
-    },
-    function (results, status) {
-      if (status === google.maps.GeocoderStatus.OK) {
-        console.log(results);
-        // latitude = results?[0].geometry.location.lat();
-        // longitude = results?[0].geometry.location.lng();
-      }
-    }
-  );
-  return { lat: latitude, lng: longtitude };
-}
+export default Map;
