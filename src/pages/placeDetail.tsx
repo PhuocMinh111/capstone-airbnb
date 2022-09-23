@@ -5,6 +5,7 @@ import { IPlace } from "../types/interface";
 import { useLoadScript } from "@react-google-maps/api";
 import { google_token } from "../constants/common";
 import Map from "../components/map/map";
+import Loader from "../components/loader/loader";
 
 function PlaceDetail() {
   const [state, setState] = useState<IPlace | null>(null);
@@ -14,6 +15,7 @@ function PlaceDetail() {
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: google_token,
+    
   });
 
   //----------------------------------
@@ -26,7 +28,8 @@ function PlaceDetail() {
     const result = await FetchSinglePlaceApi(placeId);
     setState(result.data);
   };
-  if (!isLoaded) return <>Loading</>;
+
+  if (!isLoaded) return <Loader />;
   return (
     state && (
       <div className="flex flex-col sm:flex-row p-3">

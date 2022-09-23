@@ -3,26 +3,32 @@ import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import { google_token } from "../../constants/common";
 import { GoogleMap, MarkerF } from "@react-google-maps/api";
 import { getLatlong } from "../../Utils/util";
+import Loader from "../loader/loader";
 interface IPos {
   lat: number;
   lng: number;
 }
 function Map({ place }: { place: string | undefined }) {
-  const ref = React.useRef<HTMLDivElement>(null);
-  const [map, setMap] = React.useState<google.maps.Map>();
   const [pos, setPos] = useState<IPos | undefined>();
+  const [err, setErr] = useState(false);
   //   console.log(getLatlong(place));
   //   const pos = useMemo(() => ({ lat: 10, lng: 10 }), []);
   useEffect(() => {
-    getLatlong(place).then((res: any) => {
-      console.log(res);
-      const lat = res.results[0].geometry.location.lat();
-      const lng = res.results[0].geometry.location.lng();
-      setPos({ lat: lat, lng: lng });
-    });
+    getLatlong(place)
+      .then((res: any) => {
+        console.log(res);
+        const lat = res.results[0].geometry.location.lat();
+        const lng = res.results[0].geometry.location.lng();
+        setPos({ lat: lat, lng: lng });
+      })
+      .catch((e) => {
+        setErr(true);
+      });
   }, []);
 
-  if (!pos) return <>loading</>;
+  if (!pos) return <Loader />;
+  if (err) return <h4 className="text-red-500">Content not found</h4>;
+
   return (
     <GoogleMap
       zoom={14}
