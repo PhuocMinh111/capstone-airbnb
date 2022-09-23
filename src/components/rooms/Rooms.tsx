@@ -7,6 +7,7 @@ import { IRoom } from "../../types/interface";
 import styled from "styled-components";
 import { shuffleArray } from "../../Utils/util";
 import { setPlace } from "../../store/reducers/placesReducer";
+import Loader from "../loader/loader";
 
 function Room() {
   const [rooms, setRooms] = useState<Array<IRoom> | any>();
@@ -24,7 +25,7 @@ function Room() {
     setRooms(shuffleArray(result.data.slice(0, 30)));
   };
 
-  if (!rooms) return null;
+  if (!rooms) return <Loader />;
   return (
     <div className="grid relative grid-cols-1 md:grid-cols-4 ">
       {rooms?.map((item: IRoom, index: any) => {
