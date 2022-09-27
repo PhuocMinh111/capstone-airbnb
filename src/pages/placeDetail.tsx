@@ -36,7 +36,7 @@ function PlaceDetail() {
         )}
       </div>
       <div className="w-full grid item-center sm:w-1/2 sm:mx-3">
-        <Map place={"da nang"} />
+        <Map place="da nang" />
       </div>
     </div>
   );
