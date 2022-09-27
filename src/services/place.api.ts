@@ -13,7 +13,7 @@ export const FetchRoomApi = (): AxiosPromise => {
     method: "get",
   });
 };
-export const FetchSingleRoomApi = (id: string): AxiosPromise => {
+export const FetchSingleRoomApi = (id: string | undefined): AxiosPromise => {
   return request({
     url: `/api/rooms/${id}`,
     method: "get",

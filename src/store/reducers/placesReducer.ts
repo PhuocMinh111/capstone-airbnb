@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { IPlace } from "../../types/interface";
 import { removeAccents } from "../../Utils/util";
+import Places from "../../pages/places";
 
 interface IPlaceReducer {
   places: IPlace[];
@@ -38,7 +39,7 @@ const placeReducer = createSlice({
       let searchArr: string[] = removeAccents(
         action.payload.search.toLowerCase()
       ).split(" ");
-  
+
       let result: Array<IPlace> = [];
       for (let i = 0; i < data.length; i++) {
         const element = data[i];
@@ -48,9 +49,7 @@ const placeReducer = createSlice({
         } else {
           province = removeAccents(province.toLowerCase());
           for (let letter of searchArr) {
-       
             if (province.includes(letter)) {
-           
               result.push(element);
               break;
             }
@@ -60,6 +59,7 @@ const placeReducer = createSlice({
 
       state.selected = result;
     },
+
     clearSearch: (state) => {
       state.selected = [];
     },

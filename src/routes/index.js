@@ -5,7 +5,7 @@ import SearchInfo from "../pages/searchInfo";
 const PlaceDetail = lazy(() => import("../pages/placeDetail"));
 const HomeLayout = lazy(() => import("../layouts/HomeLayout"));
 const Home = lazy(() => import("../pages/home"));
-
+const RoomDetail = lazy(() => import("../pages/roomDetail"));
 export default function Routes() {
   const routing = useRoutes([
     {
@@ -27,6 +27,10 @@ export default function Routes() {
         {
           path: "/placedetail/:placeId",
           element: <PlaceDetail />,
+        },
+        {
+          path: "/roomDetail/:roomId",
+          element: <RoomDetail />,
         },
       ],
     },

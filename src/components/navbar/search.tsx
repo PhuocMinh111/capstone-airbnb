@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FaSearch } from "react-icons/fa";
 import BasicDatePicker from "./datePicker";
@@ -19,7 +19,7 @@ function classNames(...classes: any[]) {
 function Search() {
   // router
   const navigate = useNavigate();
-
+  const location = useLocation();
   //---redux-----
   const dispatch = useDispatch();
   const selected = useSelector((state: RootState) => state.places.selected);
@@ -38,7 +38,6 @@ function Search() {
 
   async function handleSearch(e: any) {
     e.preventDefault();
-    console.log("search");
     const data = await fetchPlace();
     dispatch(searchPlace({ search: place, data: data }));
     dispatch(closeSearch());
@@ -71,7 +70,8 @@ function Search() {
     if (selected.length < 1 && place !== "") {
       return setErr({ state: true, msg: "nơi bạn tìm không có" });
     }
-    if (selected.length > 1) navigate("/places");
+    if (selected.length > 1 && !location.pathname.includes("roomDetail"))
+      navigate("/places");
   }, [selected]);
 
   //------fetch-----------

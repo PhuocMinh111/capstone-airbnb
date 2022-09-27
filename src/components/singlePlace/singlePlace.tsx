@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useTransition } from "react";
 import { FaStar } from "react-icons/fa";
 import { AiOutlineHeart } from "react-icons/ai";
 import styled from "styled-components";
@@ -7,10 +7,15 @@ import { useNavigate } from "react-router-dom";
 
 function SinglePlace({ ...place }: IPlace) {
   const navigate = useNavigate();
+  const [ispending, startTranstion] = useTransition();
   const { _id, name, image, country, valueate, province } = place;
   return (
     <div
-      onClick={() => navigate(`/placedetail/${_id}`)}
+      onClick={() => {
+        startTranstion(() => {
+          navigate(`/placedetail/${_id}`);
+        });
+      }}
       className="flex transition ease-out relative hover:z-index:100 hover:scale-110 p-3 gap-4 shadow-md mx-3 my-2 rounded-xl flex-col"
     >
       <img

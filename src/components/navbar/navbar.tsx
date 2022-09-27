@@ -8,9 +8,10 @@ import { useDispatch } from "react-redux";
 import { openSidebar } from "../../store/reducers/navBarReducer";
 import Search from "./search";
 import Profile from "./profile";
+import useTransitionNavigate from "../../hooks/useTransitionNavigate";
 
 export default function NavBar() {
-  const navigate = useNavigate();
+  const navigate = useTransitionNavigate();
   const dispatch = useDispatch();
 
   return (
