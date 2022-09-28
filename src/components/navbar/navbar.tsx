@@ -3,16 +3,19 @@ import { Fragment, useState } from "react";
 import { FaAirbnb } from "react-icons/fa";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Navigate, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Navigate, useNavigate, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { openSidebar } from "../../store/reducers/navBarReducer";
 import Search from "./search";
 import Profile from "./profile";
 import useTransitionNavigate from "../../hooks/useTransitionNavigate";
+import { useSelect } from "@mui/base";
+import { RootState } from "../../store/store";
 
 export default function NavBar() {
   const navigate = useTransitionNavigate();
   const dispatch = useDispatch();
+  const { user } = useSelector((state: RootState) => state.user);
 
   return (
     <Disclosure as="nav" className="bg-gray-800 z-50 sticky top-0 h-auto">
@@ -59,7 +62,19 @@ export default function NavBar() {
                 </button>
 
                 {/* Profile dropdown */}
-                <Profile />
+                {user.length > 1 ? (
+                  <Profile />
+                ) : (
+                  <Link
+                    className="text-slate-50 bg-slate-900
+               p-3 rounded-lg cursor-pointer no-underline
+               hover:bg-slate-50 text-md hover:text-slate-800
+               "
+                    to="/login"
+                  >
+                    login
+                  </Link>
+                )}
               </div>
             </div>
           </div>

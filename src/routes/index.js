@@ -1,5 +1,6 @@
 import { lazy } from "react";
 import { useRoutes } from "react-router-dom";
+import LoginLayout from "../layouts/loginLayout";
 import Places from "../pages/places";
 import SearchInfo from "../pages/searchInfo";
 const PlaceDetail = lazy(() => import("../pages/placeDetail"));
@@ -17,12 +18,12 @@ export default function Routes() {
           element: <Home />,
         },
         {
-          path: "/s/:searchId",
-          element: <searchInfo />,
+          path: "/s/",
+          element: <Places search={true} />,
         },
         {
           path: "/places",
-          element: <Places />,
+          element: <Places search={false} />,
         },
         {
           path: "/placedetail/:placeId",
@@ -33,6 +34,10 @@ export default function Routes() {
           element: <RoomDetail />,
         },
       ],
+    },
+    {
+      path: "/login",
+      element: <LoginLayout />,
     },
   ]);
 

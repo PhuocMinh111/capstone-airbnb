@@ -10,7 +10,7 @@ interface IPlaceReducer {
   selected: IPlace[];
 }
 
-const INITAL_STATE: IPlaceReducer = {
+const INITIAL_STATE: IPlaceReducer = {
   places: [],
   index: 0,
   selected: [],
@@ -22,7 +22,7 @@ interface searchAction {
 
 const placeReducer = createSlice({
   name: "searchForm",
-  initialState: INITAL_STATE,
+  initialState: INITIAL_STATE,
   reducers: {
     //    slicePlaceArr:():void => {
     //    }

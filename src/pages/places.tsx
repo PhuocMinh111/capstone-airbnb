@@ -8,15 +8,15 @@ import { IPlace } from "../types/interface";
 import styled from "styled-components";
 import { setPlace } from "../store/reducers/placesReducer";
 
-function Places() {
-  const [places, setPlaces] = useState<Array<IPlace> | any>();
+function Places({ search }: { search: boolean | null }) {
+  // const [place, setPlaces] = useState<Array<IPlace> | any>();
   const isSearchOpen = useSelector(
     (state: RootState) => state.navbar.isSearchOpen
   );
-
-  const { selected } = useSelector((state: RootState) => state.places);
-
+  const { selected, places } = useSelector((state: RootState) => state.places);
+  const dispatch = useDispatch();
   useEffect(() => {
+    if (places.length > 0) return;
     fetchPlace();
   }, []);
   // console.log(place);
@@ -27,11 +27,13 @@ function Places() {
   const fetchPlace = async () => {
     const result = await FetchPlaceApi();
 
-    setPlaces(result.data.slice(0, 50));
+    // setPlaces(result.data.slice(0, 50));
+    dispatch(setPlace(result.data));
   };
+
   return (
     <div className="grid relative grid-cols-1 md:grid-cols-4 ">
-      {selected.length < 1
+      {!search
         ? places?.map((item: IPlace, index: any) => {
             return <SinglePlace {...item} key={index} />;
           })
@@ -50,6 +52,3 @@ const ClickArea = styled.div`
   opacity: 0.3;
 `;
 export default Places;
-function dispatch(arg0: any) {
-  throw new Error("Function not implemented.");
-}

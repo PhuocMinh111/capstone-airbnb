@@ -5,14 +5,14 @@ interface navbarState {
   isSideBarOpen: boolean;
   isSearchOpen: boolean;
 }
-const INITAL_STATE: navbarState = {
+const INITIAL_STATE: navbarState = {
   isSideBarOpen: false,
   isSearchOpen: false,
 };
 
 const navBarSlice = createSlice({
   name: "searchForm",
-  initialState: INITAL_STATE,
+  initialState: INITIAL_STATE,
   reducers: {
     openSidebar: (state): void => {
       console.log("open");

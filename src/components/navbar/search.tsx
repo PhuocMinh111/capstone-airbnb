@@ -71,7 +71,7 @@ function Search() {
       return setErr({ state: true, msg: "nơi bạn tìm không có" });
     }
     if (selected.length > 1 && !location.pathname.includes("roomDetail"))
-      navigate("/places");
+      navigate("/s");
   }, [selected]);
 
   //------fetch-----------

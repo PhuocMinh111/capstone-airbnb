@@ -8,10 +8,11 @@ import styled from "styled-components";
 import { shuffleArray } from "../../Utils/util";
 import { setPlace } from "../../store/reducers/placesReducer";
 import Loader from "../loader/loader";
+import useTransitionNavigate from "../../hooks/useTransitionNavigate";
 
 function Room() {
   const [rooms, setRooms] = useState<Array<IRoom> | any>();
-
+  const navigateTransition = useTransitionNavigate();
   const isSearchOpen = useSelector(
     (state: RootState) => state.navbar.isSearchOpen
   );

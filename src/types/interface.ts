@@ -24,3 +24,16 @@ export interface IRoom extends IPlace {
   pool: boolean;
   wifi: boolean;
 }
+
+export interface IUser {
+  tickets: [] | null;
+  deleteAt: boolean;
+  _id: string;
+  name: string;
+  email: string;
+  password: string;
+  phone: string;
+  gender: boolean;
+  type: string;
+  __v: number;
+}
