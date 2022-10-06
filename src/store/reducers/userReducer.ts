@@ -28,7 +28,10 @@ const userReducer = createSlice({
     setSignUp: (state) => {
       state.isSignUp = true;
     },
+    setLogin: (state) => {
+      state.isSignUp = false;
+    },
   },
 });
-export const { setUser, setSignUp } = userReducer.actions;
+export const { setUser, setSignUp, setLogin } = userReducer.actions;
 export default userReducer.reducer;
