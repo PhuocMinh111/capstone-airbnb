@@ -24,7 +24,7 @@ function Room() {
 
   const fetchRoom = async () => {
     const result = await FetchRoomApi();
-    setRooms(shuffleArray(result.data.slice(0, 30)));
+    setRooms(shuffleArray(result.data));
   };
 
   if (!rooms) return <Loader />;

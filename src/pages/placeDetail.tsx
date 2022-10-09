@@ -10,7 +10,7 @@ import Loader from "../components/loader/loader";
 function PlaceDetail() {
   const [state, setState] = useState<IPlace | null>(null);
   const { placeId } = useParams();
-  //-----google map----------
+  //-----google map------------------
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: google_token,

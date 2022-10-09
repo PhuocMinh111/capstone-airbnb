@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setSignUp } from "../../store/reducers/userReducer";
+import { setSignUp, setUser } from "../../store/reducers/userReducer";
 
 function LoginForm() {
   const dispatch = useDispatch();
+  const [pass, setPass] = useState<string | number | any>("");
+  const [username, setUsername] = useState<string | number | any>("");
+  function handleSignIn() {}
 
+  function fetchSignIn() {}
   return (
     <div>
       <div className="w-full max-w-xs">
@@ -19,6 +23,8 @@ function LoginForm() {
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               type="text"
               placeholder="Username"
             />
@@ -34,16 +40,24 @@ function LoginForm() {
               className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
               id="password"
               type="password"
+              name="password"
+              value={pass}
+              onChange={(e) => {
+                setPass(e.target.value);
+              }}
               placeholder="******************"
             />
-            <p className="text-red-500 text-xs italic">
-              Please choose a password.
-            </p>
+            {pass.length < 1 && (
+              <p className="text-red-500 text-xs italic">
+                Please choose a password.
+              </p>
+            )}
           </div>
           <div className="flex items-center justify-between">
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="button"
+              onClick={handleSignIn}
             >
               Sign In
             </button>
@@ -58,9 +72,7 @@ function LoginForm() {
             </a>
           </div>
         </form>
-        <p className="text-center text-gray-500 text-xs">
-          ©2020 Acme Corp. All rights reserved.
-        </p>
+        <p className="text-center text-gray-500 text-xs"></p>
       </div>
       ;
     </div>
