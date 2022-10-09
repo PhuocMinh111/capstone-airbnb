@@ -16,7 +16,7 @@ function LoginLayout() {
       >
         <FaArrowLeft className="text-slate-800" />
       </Link>
-      <div className=" grid  place-items-center">
+      <div className=" grid w-full h-full place-items-center">
         {isSignUp ? <SignUp /> : <LoginForm />}
       </div>
     </div>

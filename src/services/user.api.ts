@@ -1,7 +1,6 @@
-import { AxiosPromise } from "axios";
 import { request } from "../axios/axios";
-
-interface ISignUp {
+import { AxiosPromise } from "axios";
+interface Iuser {
   name: string;
   email: string;
   password: string;
@@ -10,14 +9,18 @@ interface ISignUp {
   gender: boolean;
   address: string;
 }
-
-export function fetchSignUpApi(data: ISignUp): AxiosPromise<any> {
+export const FetchSignIn = (data: Iuser): AxiosPromise => {
   return request({
-    url: "/api/users",
-    method: "POST",
-    data: {
-      type: "CLIENT",
-      ...data,
-    },
+    url: "/api/auth/register",
+    method: "get",
+    data: data,
   });
-}
+};
+
+export const fetchLogin = (data: { email: string; password: string }) => {
+  return request({
+    url: "/api/auth/login",
+    method: "post",
+    data: data,
+  });
+};

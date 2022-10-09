@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loader from "../components/loader/loader";
-import { FetchPlaceApi, FetchSingleRoomApi } from "../services/place.api";
+import {
+  FetchPlaceApi,
+  FetchReviewApi,
+  FetchSingleRoomApi,
+} from "../services/place.api";
 import { MdOutlinePool, MdKitchen } from "react-icons/md";
 import { FaHotTub, FaWifi } from "react-icons/fa";
 import { CgGym } from "react-icons/cg";
@@ -9,8 +13,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { IPlace } from "../types/interface";
 import { searchPlace } from "../store/reducers/placesReducer";
 import type { RootState } from "../store/store";
+import Booking from "../components/booking/booking";
 function RoomDetail() {
   const [room, setRoom] = useState<any | null>();
+  const [review, setReview] = useState<any | null>();
   const { roomId } = useParams();
   const [place, setPlace] = useState<IPlace | null>(null);
   const dispatch = useDispatch();
@@ -19,6 +25,7 @@ function RoomDetail() {
 
   useEffect(() => {
     fetchSingleRoom();
+    fetchReview();
   }, []);
 
   useEffect(() => {
@@ -31,11 +38,18 @@ function RoomDetail() {
     if (!search) return;
     dispatch(searchPlace({ data: result.data, search: search }));
   }
+
   async function fetchSingleRoom() {
     const result = await FetchSingleRoomApi(roomId);
     const { data } = result;
     setRoom(data);
-    console.log(data);
+  }
+  async function fetchReview() {
+    const result = await FetchReviewApi(roomId);
+    const { data } = result;
+    console.log(result);
+
+    setReview(data);
   }
   return room ? (
     <div>
@@ -90,6 +104,24 @@ function RoomDetail() {
           <p>{room.description}</p>
           <div className="flex flex-auto"></div>
         </div>
+      </div>
+      <div className="flex flex-col border-t-2 mt-3  sm:flex-row">
+        <div className="w-2/3 px-5 mt-3 sm:w-2/5 flex-col">
+          <h5 className="text-slate-500 font-xl">Đánh giá:</h5>
+          <ul>
+            {review
+              ? review.map((ele: any, index: number) => {
+                  return (
+                    <li className="mt-2 border-b-2 py-2" key={index}>
+                      {ele.content}
+                    </li>
+                  );
+                })
+              : "không có đánh giá"}
+          </ul>
+        </div>
+        <div className="w-2/3 px-5 mt-3 sm:w-2/5" />
+        <Booking />
       </div>
     </div>
   ) : (

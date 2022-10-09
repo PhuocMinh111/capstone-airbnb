@@ -140,7 +140,6 @@ function Search() {
                 value={checkin}
                 name={"ngày đi"}
                 setValue={(newValue: any) => setCheckin(newValue)}
-                isSubmit={false}
               />
             </div>
             <div className="flex flex-col mx-ato w-5/6 sm:w-1/4 ">
@@ -149,7 +148,6 @@ function Search() {
                 name={"ngày về"}
                 value={checkout}
                 setValue={(newValue: any) => setCheckout(newValue)}
-                isSubmit={false}
               />
             </div>
             <div className="w-5/6 flex-shrink-1 sm:w-1/6 lg:ml-4">

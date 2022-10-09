@@ -26,3 +26,10 @@ export const FetchSinglePlaceApi = (id: string | undefined): AxiosPromise => {
     method: "get",
   });
 };
+
+export const FetchReviewApi = (id: string | undefined): AxiosPromise => {
+  return request({
+    url: `/api/reviews/byRoom?roomId=${id}`,
+    method: "GET",
+  });
+};

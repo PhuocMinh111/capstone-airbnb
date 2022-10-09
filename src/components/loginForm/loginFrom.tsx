@@ -1,14 +1,21 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { fetchLogin } from "../../services/user.api";
 import { setSignUp, setUser } from "../../store/reducers/userReducer";
 
 function LoginForm() {
   const dispatch = useDispatch();
   const [pass, setPass] = useState<string | number | any>("");
   const [username, setUsername] = useState<string | number | any>("");
-  function handleSignIn() {}
+  function handleLogin() {
+    fetchSignIn();
+  }
 
-  function fetchSignIn() {}
+  async function fetchSignIn() {
+    const result = await fetchLogin({ email: username, password: pass });
+    console.log(result);
+  }
+
   return (
     <div>
       <div className="w-full max-w-xs">
@@ -57,7 +64,7 @@ function LoginForm() {
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="button"
-              onClick={handleSignIn}
+              onClick={handleLogin}
             >
               Sign In
             </button>

@@ -42,7 +42,7 @@ function SingleRoom({ ...place }: IRoom) {
         </div>
       </div>
       <h5 className="text-slate-500 text-sm">
-        {description.substring(0, 30)}...
+        {description && description.substring(0, 30)}...
       </h5>
       <h5 className="text-slate-800 text-sm">
         <span>giá </span> {price}{" "}
