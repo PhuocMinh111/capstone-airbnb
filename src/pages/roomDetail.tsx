@@ -10,12 +10,12 @@ import { MdOutlinePool, MdKitchen } from "react-icons/md";
 import { FaHotTub, FaWifi } from "react-icons/fa";
 import { CgGym } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
-import { IPlace } from "../types/interface";
+import { IPlace, IRoom } from "../types/interface";
 import { searchPlace } from "../store/reducers/placesReducer";
 import type { RootState } from "../store/store";
 import Booking from "../components/booking/booking";
 function RoomDetail() {
-  const [room, setRoom] = useState<any | null>();
+  const [room, setRoom] = useState<IRoom | null>();
   const [review, setReview] = useState<any | null>();
   const { roomId } = useParams();
   const [place, setPlace] = useState<IPlace | null>(null);
@@ -42,15 +42,17 @@ function RoomDetail() {
   async function fetchSingleRoom() {
     const result = await FetchSingleRoomApi(roomId);
     const { data } = result;
+    console.log(data);
+
     setRoom(data);
   }
   async function fetchReview() {
     const result = await FetchReviewApi(roomId);
     const { data } = result;
-    console.log(result);
 
     setReview(data);
   }
+
   return room ? (
     <div>
       <div className="flex flex-col sm:flex-row">
@@ -105,7 +107,7 @@ function RoomDetail() {
           <div className="flex flex-auto"></div>
         </div>
       </div>
-      <div className="flex flex-col border-t-2 mt-3  sm:flex-row">
+      <div className="flex px-3 justify-between flex-col border-t-2 mt-3  sm:flex-row">
         <div className="w-2/3 px-5 mt-3 sm:w-2/5 flex-col">
           <h5 className="text-slate-500 font-xl">Đánh giá:</h5>
           <ul>
@@ -120,8 +122,9 @@ function RoomDetail() {
               : "không có đánh giá"}
           </ul>
         </div>
-        <div className="w-2/3 px-5 mt-3 sm:w-2/5" />
-        <Booking />
+        <div className="w-2/3 px-5 mt-3 sm:w-2/5">
+          <Booking price={room?.price.toString()} rating={"5"} />
+        </div>
       </div>
     </div>
   ) : (

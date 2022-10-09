@@ -13,7 +13,10 @@ export interface IRoom extends IPlace {
   bedRoom: number;
   bath: number;
   description: string;
-  price: boolean;
+  guests: string;
+  hotTub: string;
+  price: string;
+  locationId: any;
   image: string;
   cableTV: boolean;
   dryer: boolean;
@@ -30,6 +33,7 @@ export interface IUser {
   deleteAt: boolean;
   _id: string;
   name: string;
+  locationId: any;
   email: string;
   password: string;
   phone: string;

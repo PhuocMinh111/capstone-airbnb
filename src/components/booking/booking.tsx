@@ -1,18 +1,22 @@
 import DatePicker from "../../components/navbar/datePicker";
 import { Dayjs } from "dayjs";
 import React, { useState } from "react";
+import { formatPrice } from "../../Utils/util";
 
-function Booking() {
+function Booking({ price, rating }: { price: string; rating: string }) {
   const [checkin, setCheckin] = useState<Dayjs | null>(null);
   const [checkout, setCheckout] = useState<Dayjs | null>(null);
 
   return (
     <div
-      className="w-40 h-40 rounded-xl
+      className="w-full p-3 h-full border-2 rounded-xl
     flex-col 
     "
     >
-      <div className="flex">
+      <h5 className="text-slate-900 font-medium text-lg ">
+        {formatPrice(price)} đ
+      </h5>
+      <div className="flex mt-2">
         <DatePicker
           name="ngay di"
           setValue={setCheckin}
@@ -23,6 +27,10 @@ function Booking() {
           setValue={setCheckout}
           value={checkout}
         ></DatePicker>
+      </div>
+      <div>
+        <label htmlFor="customers">Khach</label>
+        <input type="number" className="input" name="" id="customers" />
       </div>
     </div>
   );

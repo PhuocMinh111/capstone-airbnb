@@ -43,3 +43,14 @@ export const getLatlong = (address: string | undefined) => {
   });
   // return result;
 };
+
+export const formatPrice = (price: string | undefined): string | null => {
+  if (price === undefined) return null;
+  let priceArr: string[] = price.split("");
+  let result: string[];
+  for (let i = priceArr.length; i > 0; i--) {
+    if (i === priceArr.length) continue;
+    if (i % 3 === 0) priceArr.splice(i, 0, ",");
+  }
+  return priceArr.join("");
+};
