@@ -131,19 +131,6 @@ function RoomDetail() {
             </button>
           </div>
           <ul>
-<<<<<<< HEAD
-            {review ? (
-              review.map((ele: any, index: number) => {
-                return (
-                  <li className="mt-2 border-b-2 list-disc py-2" key={index}>
-                    {ele.content}
-                  </li>
-                );
-              })
-            ) : (
-              <h4>không có đánh giá</h4>
-            )}
-=======
             {comments
               ? comments.map((ele: any, index: number) => {
                   return (
@@ -153,7 +140,6 @@ function RoomDetail() {
                   );
                 })
               : "không có đánh giá"}
->>>>>>> d569b5dcdd160692d3d65736b95a0a609d9c0053
           </ul>
         </div>
         <div className="w-2/3 px-5 mt-3 sm:w-2/5">
