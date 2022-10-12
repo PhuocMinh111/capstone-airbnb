@@ -14,13 +14,18 @@ import { IPlace, IRoom } from "../types/interface";
 import { searchPlace } from "../store/reducers/placesReducer";
 import type { RootState } from "../store/store";
 import Booking from "../components/booking/booking";
+import { Root } from "react-dom/client";
+import { setComments } from "../store/reducers/userReducer";
+import UseComment from "../hooks/useComment";
+
 function RoomDetail() {
+  const [comment, setComment] = useState<string | any>("");
   const [room, setRoom] = useState<IRoom | null>();
-  const [review, setReview] = useState<any | null>();
+  const { comments } = useSelector((state: RootState) => state.user);
   const { roomId } = useParams();
   const [place, setPlace] = useState<IPlace | null>(null);
   const dispatch = useDispatch();
-
+  const fetchCommnet = UseComment();
   const { selected } = useSelector((state: RootState) => state.places);
 
   useEffect(() => {
@@ -42,15 +47,17 @@ function RoomDetail() {
   async function fetchSingleRoom() {
     const result = await FetchSingleRoomApi(roomId);
     const { data } = result;
-    console.log(data);
 
     setRoom(data);
   }
   async function fetchReview() {
     const result = await FetchReviewApi(roomId);
     const { data } = result;
-
-    setReview(data);
+    dispatch(setComments(data));
+    // setReview(data);
+  }
+  function handleComment() {
+    fetchCommnet(roomId, comment);
   }
 
   return room ? (
@@ -108,9 +115,23 @@ function RoomDetail() {
         </div>
       </div>
       <div className="flex px-3 justify-between flex-col border-t-2 mt-3  sm:flex-row">
-        <div className="w-2/3 px-5 mt-3 sm:w-2/5 flex-col">
+        <div className="w-full px-1 sm:px-5 mt-3 sm:w-2/5 flex-col">
           <h5 className="text-slate-500 font-xl">Đánh giá:</h5>
+          <div className="flex flex-row gap-0">
+            <input
+              onChange={(e) => setComment(e.target.value)}
+              className="input border-2 rounded ml-3 w-full sm:w-2/3"
+              value={comment}
+            />
+            <button
+              className="bg-red-500 hover:bg-red-800 mr-2 sm:mr-3 p-2 rounded text-white font-bold"
+              onClick={handleComment}
+            >
+              review{" "}
+            </button>
+          </div>
           <ul>
+<<<<<<< HEAD
             {review ? (
               review.map((ele: any, index: number) => {
                 return (
@@ -122,6 +143,17 @@ function RoomDetail() {
             ) : (
               <h4>không có đánh giá</h4>
             )}
+=======
+            {comments
+              ? comments.map((ele: any, index: number) => {
+                  return (
+                    <li className="mt-2 border-b-2 py-2" key={index}>
+                      {ele.content}
+                    </li>
+                  );
+                })
+              : "không có đánh giá"}
+>>>>>>> d569b5dcdd160692d3d65736b95a0a609d9c0053
           </ul>
         </div>
         <div className="w-2/3 px-5 mt-3 sm:w-2/5">
