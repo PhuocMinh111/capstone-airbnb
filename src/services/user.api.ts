@@ -9,15 +9,19 @@ interface Iuser {
   gender: boolean;
   address: string;
 }
-export const FetchSignIn = (data: Iuser): AxiosPromise => {
+export const FetchSignUp = (data: Iuser): AxiosPromise => {
+  console.log(data);
+
   return request({
     url: "/api/auth/register",
-    method: "get",
+    method: "POST",
     data: data,
   });
 };
 
 export const fetchLogin = (data: { email: string; password: string }) => {
+  console.log(data);
+
   return request({
     url: "/api/auth/login",
     method: "post",

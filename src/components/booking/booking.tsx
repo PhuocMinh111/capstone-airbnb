@@ -3,12 +3,26 @@ import { Dayjs } from "dayjs";
 import React, { useState } from "react";
 import { formatPrice } from "../../Utils/util";
 import { FaStar } from "react-icons/fa";
-
+import { useDispatch } from "react-redux";
+import { setBooking } from "../../store/reducers/booking";
 function Booking({ price, rating }: { price: string; rating: string | any }) {
+  const dispatch = useDispatch();
+
   const [checkin, setCheckin] = useState<Dayjs | null>(null);
   const [checkout, setCheckout] = useState<Dayjs | null>(null);
+  const [cusNumber, setcusNumber] = useState<number | any>(0);
   console.log(checkin);
 
+  function handleBooking() {
+    if (!checkin && checkout) return;
+    dispatch(
+      setBooking({
+        checkin: checkin?.toString(),
+        checkout: checkout?.toString(),
+        cusNumber: cusNumber,
+      })
+    );
+  }
   return (
     <div
       className="w-full p-3 h-auto border-2 rounded-xl
@@ -39,12 +53,17 @@ function Booking({ price, rating }: { price: string; rating: string | any }) {
           type="number"
           min={0}
           max={10}
-          className="input ml-3"
+          className="input ml-3 border-1 rounded"
           name=""
+          value={cusNumber}
+          onChange={(e) => setcusNumber(e.target.value)}
           id="customers"
         />
       </div>
-      <button className="rounded-lg py-2 mt-3 text-white bg-red-500 w-3/4 mx-aut h-15">
+      <button
+        onClick={handleBooking}
+        className="rounded-lg py-2 mt-3 text-white bg-red-500 w-3/4 mx-aut h-15"
+      >
         Đặt Phòng
       </button>
     </div>

@@ -19,6 +19,7 @@ export default function BasicDatePicker({ value, name, setValue }: IProps) {
     <LocalizationProvider
       className="mt-2 w-20 sm:w-40"
       dateAdapter={AdapterDayjs}
+      name={name}
     >
       <DatePicker
         label={name}
