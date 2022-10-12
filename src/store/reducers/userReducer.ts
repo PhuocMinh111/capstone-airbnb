@@ -6,11 +6,13 @@ interface state {
   user: Array<IUser>;
   isLogin: boolean;
   isSignUp: boolean;
+  comments: any[];
 }
 const INITIAL_STATE: state = {
   user: [],
   isLogin: false,
   isSignUp: false,
+  comments: [],
 };
 
 const userReducer = createSlice({
@@ -31,7 +33,11 @@ const userReducer = createSlice({
     setLogin: (state) => {
       state.isSignUp = false;
     },
+    setComments: (state, action: PayloadAction<any>) => {
+      state.comments = action.payload;
+    },
   },
 });
-export const { setUser, setSignUp, setLogin } = userReducer.actions;
+export const { setUser, setSignUp, setLogin, setComments } =
+  userReducer.actions;
 export default userReducer.reducer;
