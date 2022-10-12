@@ -6,7 +6,7 @@ export interface IPlace {
   country: string;
   valueate: number;
   __v: number;
-  image: string;
+  image: string | undefined;
 }
 
 export interface IRoom extends IPlace {
@@ -17,7 +17,7 @@ export interface IRoom extends IPlace {
   hotTub: string;
   price: string;
   locationId: any;
-  image: string;
+  image: string | undefined;
   cableTV: boolean;
   dryer: boolean;
   elevator: boolean;

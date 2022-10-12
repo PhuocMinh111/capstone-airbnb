@@ -111,19 +111,24 @@ function RoomDetail() {
         <div className="w-2/3 px-5 mt-3 sm:w-2/5 flex-col">
           <h5 className="text-slate-500 font-xl">Đánh giá:</h5>
           <ul>
-            {review
-              ? review.map((ele: any, index: number) => {
-                  return (
-                    <li className="mt-2 border-b-2 py-2" key={index}>
-                      {ele.content}
-                    </li>
-                  );
-                })
-              : "không có đánh giá"}
+            {review ? (
+              review.map((ele: any, index: number) => {
+                return (
+                  <li className="mt-2 border-b-2 list-disc py-2" key={index}>
+                    {ele.content}
+                  </li>
+                );
+              })
+            ) : (
+              <h4>không có đánh giá</h4>
+            )}
           </ul>
         </div>
         <div className="w-2/3 px-5 mt-3 sm:w-2/5">
-          <Booking price={room?.price.toString()} rating={"5"} />
+          <Booking
+            price={room?.price.toString()}
+            rating={room?.valueate || ""}
+          />
         </div>
       </div>
     </div>
